@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Notícias Educação SP</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    .noticia {
+      max-width: 800px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .titulo {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    .resumo {
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <div class="noticia">
+    <div class="titulo" id="titulo"></div>
+    <div class="resumo" id="resumo"></div>
+  </div>
+
+  <script>
+    let noticias = [];
+    let atual = 0;
+
+    async function carregarNoticias() {
+      const response = await fetch('noticias.json');
+      noticias = await response.json();
+      mostrarNoticia();
+    }
+
+    function mostrarNoticia() {
+      if (noticias.length === 0) return;
+
+      const noticia = noticias[atual];
+      document.getElementById('titulo').innerText = noticia.titulo;
+      document.getElementById('resumo').innerText = noticia.resumo;
+
+      atual = (atual + 1) % noticias.length;
+    }
+
+    setInterval(mostrarNoticia, 10000); // troca a cada 10 segundos
+    carregarNoticias();
+  </script>
+</body>
+</html>
