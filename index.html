@@ -1,6 +1,143 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+  <meta charset="UTF-8" />
+  <title>Notícias - Educação SP</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    header {
+      background-color: #000;
+      color: white;
+      width: 100%;
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    header img {
+      height: 60px;
+      margin-right: 15px;
+    }
+
+    .noticia {
+      position: relative;
+      width: 90%;
+      max-width: 900px;
+      background: #f5f5f5;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+      /* animação */
+      animation: slide 12s ease-in-out forwards;
+    }
+
+    .noticia img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .titulo {
+      font-size: 2em;
+      color: #c00;
+      margin-bottom: 15px;
+    }
+
+    .resumo {
+      font-size: 1.2em;
+    }
+
+    footer {
+      margin-top: auto;
+      margin-bottom: 15px;
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    @keyframes slide {
+      0%   { transform: translateX(100%); opacity: 0; }
+      8.33%  { transform: translateX(0); opacity: 1; }
+      91.66%  { transform: translateX(0); opacity: 1; }
+      100% { transform: translateX(-100%); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Governo_do_Estado_de_S%C3%A3o_Paulo_-_marca_2021.svg/512px-Governo_do_Estado_de_S%C3%A3o_Paulo_-_marca_2021.svg.png" alt="Logo Governo SP" />
+    <h1>Secretaria da Educação de São Paulo</h1>
+  </header>
+
+  <div class="noticia" id="noticia">
+    <img id="imagem" src="" alt="Imagem da notícia" />
+    <div class="titulo" id="titulo">Carregando...</div>
+    <div class="resumo" id="resumo"></div>
+  </div>
+
+  <footer>
+    © Governo do Estado de São Paulo — Secretaria da Educação
+  </footer>
+
+  <script>
+    let noticias = [];
+    let atual = 0;
+
+    async function carregarNoticias() {
+      try {
+        const resposta = await fetch('noticias.json');
+        noticias = await resposta.json();
+        mostrarNoticia();
+        setInterval(() => {
+          mostrarNoticia();
+          reiniciarAnimacao();
+        }, 12000);
+      } catch (erro) {
+        document.getElementById('titulo').innerText = 'Erro ao carregar notícias';
+        console.error('Erro ao carregar JSON:', erro);
+      }
+    }
+
+    function mostrarNoticia() {
+      if (noticias.length === 0) return;
+      const noticia = noticias[atual];
+      document.getElementById('titulo').innerText = noticia.titulo;
+      document.getElementById('resumo').innerText = noticia.resumo;
+      document.getElementById('imagem').src = noticia.imagem;
+      atual = (atual + 1) % noticias.length;
+    }
+
+    function reiniciarAnimacao() {
+      const divNoticia = document.getElementById('noticia');
+      divNoticia.style.animation = 'none';
+      divNoticia.offsetHeight; // trigger reflow
+      divNoticia.style.animation = null;
+    }
+
+    carregarNoticias();
+  </script>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
   <meta charset="UTF-8">
   <title>Notícias - Educação SP</title>
   <style>
