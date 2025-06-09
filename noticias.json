@@ -1,22 +1,12 @@
-import requests
-from bs4 import BeautifulSoup
-import json
-
-url = 'https://www.educacao.sp.gov.br/noticias/'
-response = requests.get(url)
-soup = BeautifulSoup(response.text, 'html.parser')
-
-noticias = []
-for item in soup.select('.bloco-noticia'):
-    titulo = item.select_one('h3').get_text(strip=True)
-    link = item.select_one('a')['href']
-    resumo = item.select_one('p').get_text(strip=True) if item.select_one('p') else ''
-    
-    noticias.append({
-        'titulo': titulo,
-        'link': link,
-        'resumo': resumo
-    })
-
-with open('noticias.json', 'w', encoding='utf-8') as f:
-    json.dump(noticias, f, ensure_ascii=False, indent=2)
+[
+  {
+    "titulo": "Alunos participam de feira de ciências",
+    "resumo": "Evento reúne projetos inovadores de escolas estaduais",
+    "link": "https://www.educacao.sp.gov.br/noticias/alunos-participam-de-feira"
+  },
+  {
+    "titulo": "Nova plataforma de ensino é lançada",
+    "resumo": "Ferramenta permitirá aulas mais interativas",
+    "link": "https://www.educacao.sp.gov.br/noticias/nova-plataforma-de-ensino"
+  }
+]
