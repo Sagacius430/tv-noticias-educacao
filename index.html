@@ -33,32 +33,38 @@
 </head>
 <body>
   <div class="noticia">
-    <div class="titulo" id="titulo"></div>
+    <div class="titulo" id="titulo">Carregando...</div>
     <div class="resumo" id="resumo"></div>
   </div>
 
   <script>
-    let noticias = [];
+    // 🔽 Dados estão embutidos no JavaScript!
+    const noticias = [
+      {
+        titulo: "Alunos participam de feira de ciências",
+        resumo: "Evento reúne projetos inovadores de escolas estaduais."
+      },
+      {
+        titulo: "Nova plataforma de ensino é lançada",
+        resumo: "Ferramenta permitirá aulas mais interativas nas escolas públicas."
+      },
+      {
+        titulo: "Governo anuncia investimento em tecnologia educacional",
+        resumo: "Programa irá distribuir tablets para alunos da rede estadual."
+      }
+    ];
+
     let atual = 0;
 
-    async function carregarNoticias() {
-      const response = await fetch('noticias.json');
-      noticias = await response.json();
-      mostrarNoticia();
-    }
-
     function mostrarNoticia() {
-      if (noticias.length === 0) return;
-
       const noticia = noticias[atual];
       document.getElementById('titulo').innerText = noticia.titulo;
       document.getElementById('resumo').innerText = noticia.resumo;
-
       atual = (atual + 1) % noticias.length;
     }
 
     setInterval(mostrarNoticia, 10000); // troca a cada 10 segundos
-    carregarNoticias();
+    mostrarNoticia(); // mostra a primeira ao carregar
   </script>
 </body>
 </html>
