@@ -27,6 +27,134 @@
     }
 
     header img {
+      height: 80px;
+      margin-right: 40px;
+    }
+
+    header h1 {
+      font-size: 1.8em;
+      margin: 0;
+    }
+
+    .noticia {
+      background: #f5f5f5;
+      margin-top: 30px;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 900px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .noticia img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .titulo {
+      font-size: 2em;
+      color: #c00;
+      margin-bottom: 15px;
+    }
+
+    .resumo {
+      font-size: 1.2em;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://www.educacao.sp.gov.br/wp-content/uploads/2023/08/GOV_LOGO-2023_SECRETARIA-EDUCACAO_versa%E2%95%A0%C3%A2o-PRINCIPAL-COLORIDA_HORIZONTAL.png">
+    <h1>Secretaria da Educação de São Paulo</h1>
+  </header>
+
+  <div class="noticia">
+    <img id="imagem" src="" alt="Imagem da notícia">
+    <div class="titulo" id="titulo">Carregando notícia...</div>
+    <div class="resumo" id="resumo"></div>
+  </div>
+
+  <footer>
+    © Governo do Estado de São Paulo — Secretaria da Educação
+  </footer>
+
+  <script>
+    const noticias = [
+      {
+        titulo: "Governo de SP conclui 3.965 obras em escolas e creches",
+        resumo: "Investimentos em infraestrutura escolar foram intensificados nos últimos 2 anos.",
+        imagem: "https://www.educacao.sp.gov.br/wp-content/uploads/2024/05/obras-escolas-creches.jpg"
+      },
+      {
+        titulo: "Estudantes do 2º ano participam da avaliação de fluência leitora",
+        resumo: "Avaliação busca identificar e fortalecer a alfabetização dos alunos.",
+        imagem: "https://www.educacao.sp.gov.br/wp-content/uploads/2024/04/avaliacao-fluencia-leitura.jpg"
+      },
+      {
+        titulo: "Mais de 7,5 mil estudantes estagiam nas escolas pelo BEEM",
+        resumo: "Iniciativa impulsiona protagonismo estudantil e apoio nas unidades escolares.",
+        imagem: "https://www.educacao.sp.gov.br/wp-content/uploads/2024/03/estagio-beem.jpg"
+      }
+    ];
+
+    let atual = 0;
+
+    function mostrarNoticia() {
+      const noticia = noticias[atual];
+      document.getElementById('titulo').innerText = noticia.titulo;
+      document.getElementById('resumo').innerText = noticia.resumo;
+      document.getElementById('imagem').src = noticia.imagem;
+      atual = (atual + 1) % noticias.length;
+    }
+
+    setInterval(mostrarNoticia, 10000);
+    mostrarNoticia();
+  </script>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Notícias - Educação SP</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      background-color: #272525;
+      color: white;
+      padding: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    header img {
       height: 60px;
       margin-right: 20px;
     }
